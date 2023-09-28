@@ -1,6 +1,8 @@
 package com.fatihkarakus.ecommerce.controller;
 
 import com.fatihkarakus.ecommerce.dto.ResponseDto;
+import com.fatihkarakus.ecommerce.dto.user.SigninDto;
+import com.fatihkarakus.ecommerce.dto.user.SigninResponseDto;
 import com.fatihkarakus.ecommerce.dto.user.SignupDto;
 import com.fatihkarakus.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +25,8 @@ public class UserController {
     }
 
     // signin
-
+    @PostMapping("/signin")
+    public SigninResponseDto signIn(@RequestBody SigninDto signinDto) {
+        return userService.signIn(signinDto);
+    }
 }
