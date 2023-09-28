@@ -1,6 +1,7 @@
 package com.fatihkarakus.ecommerce.service;
 
 import com.fatihkarakus.ecommerce.dto.ProductDto;
+import com.fatihkarakus.ecommerce.exceptions.ProductNotExistsException;
 import com.fatihkarakus.ecommerce.model.Category;
 import com.fatihkarakus.ecommerce.model.Product;
 import com.fatihkarakus.ecommerce.repository.ProductRepository;
@@ -64,5 +65,14 @@ public class ProductService {
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());
         productRepository.save(product);
+    }
+
+    public Product findById(Integer productId) throws ProductNotExistsException {
+        final Optional<Product> optionalProduct = productRepository.findById(productId);
+        if(optionalProduct.isEmpty()) {
+            throw new ProductNotExistsException("product is invalid" + productId);
+        }
+
+        return optionalProduct.get();
     }
 }
